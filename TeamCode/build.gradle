@@ -17,12 +17,19 @@ apply from: '../build.dependencies.gradle'
 
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 
     packagingOptions {
         jniLibs.useLegacyPackaging true
     }
 }
+repositories{
+    maven { url 'https://maven.brott.dev/' }
+}
 
 dependencies {
     implementation project(':FtcRobotController')
+    implementation 'androidx.core:core-ktx:1.13.0'
 }
