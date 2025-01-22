@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.TuningOpModes;
+package org.firstinspires.ftc.teamcode.TestOpModes;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -15,10 +16,10 @@ import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
 @Config
-@TeleOp (name = "Drive Tuning", group = "Tuning OpModes")
-public class DriveTuning extends LinearOpMode {
+@Autonomous(name = "Auto Drive Specimen Test", group = "Tuning OpModes")
+public class AutoDriveSpecimenTest extends LinearOpMode {
 
-    public static double p = 0.09, i = 0.0001, d = 0.01;
+    public static double p = 0.15, i = 0.0001, d = 0.03;
     public static double p2 = 0.06,i2 = 0.0001, d2 = 0.01;
     public static double p3 = 1.2,i3 = 0.0001,d3 = 0.08;
 
@@ -26,7 +27,7 @@ public class DriveTuning extends LinearOpMode {
     public void runOpMode() {
         //telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(8.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
 
 
@@ -46,19 +47,25 @@ public class DriveTuning extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
-                                Positions.TestTurning.runToExact,
+                                Positions.HighRungTest.runToExact,
                                 new SleepAction(1),
-                                Positions.TestStart.runToExact,
-                                new SleepAction(1),
-
-                                Positions.TestTurning.runToExact,
-                                new SleepAction(1),
-                                Positions.TestStart.runToExact,
+                                Positions.GoFrontTinySpecimenTest.runToExact,
                                 new SleepAction(1),
 
-                                Positions.TestTurning.runToExact,
+                                Positions.GoBackSpecimen.runToExact,
                                 new SleepAction(1),
-                                Positions.TestStart.runToExact,
+                                Positions.FirstColorSampleTest.runToExact,
+                                new SleepAction(1),
+
+                                Positions.DropColorSampleTest.runToExact,
+                                new SleepAction(1),
+                                Positions.SpecimenObZone.runToExact,
+                                new SleepAction(1),
+                                Positions.SecondColorSampleTest.runToExact,
+                                new SleepAction(1),
+                                Positions.DropColorSampleTest.runToExact,
+                                new SleepAction(1),
+                                Positions.ObserservationZoneParkingSpecimen.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

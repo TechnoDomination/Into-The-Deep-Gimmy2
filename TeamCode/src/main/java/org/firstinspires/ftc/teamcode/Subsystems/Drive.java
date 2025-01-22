@@ -30,7 +30,7 @@ public class Drive {
         BackRightDCMotor = hardwareMap.get(DcMotorEx.class, "BackRightDCMotor");
 
         FrontLeftDCMotor.setDirection(DcMotor.Direction.REVERSE);
-        FrontRightDCMotor.setDirection(DcMotor.Direction.FORWARD);
+        FrontRightDCMotor.setDirection(DcMotor.Direction.REVERSE);
         BackLeftDCMotor.setDirection(DcMotor.Direction.REVERSE);
         BackRightDCMotor.setDirection(DcMotor.Direction.FORWARD);
 

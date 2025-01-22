@@ -49,9 +49,9 @@ public enum Positions {
     DropColorSampleTest(new Vector2d(32, -47), PI * 0.75),
 
     Test(new Vector2d(0.0,23.0),0.0),
-    Test2(new Vector2d(0.0,48),0.0),
+    Test2(new Vector2d(0.0,24),0.0),
     TestStart(new Vector2d(0.0,0.0),0.0),
-    TestRight(new Vector2d(40.0,0.0),0.0);
+    TestTurning(new Vector2d(24,24),PI * 0.5);
 
     Positions(Vector2d vector, Double rotation) {
         runToExact = new P2P(vector, rotation);
