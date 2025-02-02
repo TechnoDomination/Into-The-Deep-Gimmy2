@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
@@ -32,7 +32,7 @@ public class AutoSpecimen extends LinearOpMode {
 
         Localizer localizer = new Localizer(hardwareMap, new Poses(8.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
-        Claw claw = new Claw(hardwareMap);
+        IntakeClaw claw = new IntakeClaw(hardwareMap);
         ClawRotater clawRotater = new ClawRotater(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);

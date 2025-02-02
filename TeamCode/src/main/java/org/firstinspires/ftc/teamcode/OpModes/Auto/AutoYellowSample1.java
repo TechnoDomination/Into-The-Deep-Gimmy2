@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.OpModes.Auto;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
@@ -34,7 +34,7 @@ public class AutoYellowSample1 extends LinearOpMode {
 
         Localizer localizer = new Localizer(hardwareMap, new Poses(-35.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
-        Claw claw = new Claw(hardwareMap);
+        IntakeClaw claw = new IntakeClaw(hardwareMap);
         Slides slides = new Slides(hardwareMap);
         Arm arm = new Arm(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);

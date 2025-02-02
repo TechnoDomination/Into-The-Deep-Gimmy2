@@ -18,8 +18,8 @@ public class Drive {
     public DcMotorEx BackLeftDCMotor;
     public DcMotorEx BackRightDCMotor;
 
-    public PIDFController xPid = new PIDFController(new PIDFParams(0.08,0.0001,0.01));
-    public PIDFController yPid = new PIDFController(new PIDFParams(0.08,0.0001,0.01));
+    public PIDFController xPid = new PIDFController(new PIDFParams(0.15,0.0001,0.03));
+    public PIDFController yPid = new PIDFController(new PIDFParams(0.06,0.0001,0.01));
     public PIDFController rPid = new PIDFController(new PIDFParams(1.2,0.0001,0.08));
 
     public Drive(HardwareMap hardwareMap){

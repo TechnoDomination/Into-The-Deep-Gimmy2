@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-@Disabled
+
 @TeleOp(name="MizumiSlidesTest", group="TestOpModes")
 public class MizumiTest extends LinearOpMode {
     public DcMotorEx SlideMotor1;
     @Override
     public void runOpMode() throws InterruptedException {
 
-        SlideMotor1 = hardwareMap.get(DcMotorEx.class, "MizumiMotor");
+        SlideMotor1 = hardwareMap.get(DcMotorEx.class, "MiddleIntakeSlide");
         SlideMotor1.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
@@ -31,6 +31,8 @@ public class MizumiTest extends LinearOpMode {
                 SlideMotor1.setPower(0);
 
             }
+
+
         }
 
     }

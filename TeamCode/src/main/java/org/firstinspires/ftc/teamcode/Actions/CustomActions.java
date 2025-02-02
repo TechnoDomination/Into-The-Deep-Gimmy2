@@ -8,7 +8,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Subsystems.Arm;
-import org.firstinspires.ftc.teamcode.Subsystems.Claw;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.Slides;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomActions {
-    public Claw claw = Claw.instance;
+    public IntakeClaw claw = IntakeClaw.instance;
     public ClawRotater clawRotater = ClawRotater.instance;
     public Arm arm = Arm.instance;
     public Slides slides = Slides.instance;
@@ -69,7 +69,7 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            claw.state = Claw.State.IN;
+            claw.state = IntakeClaw.State.IN;
 
             return !claw.isTargetReached;
         }
@@ -79,7 +79,7 @@ public class CustomActions {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            claw.state = Claw.State.OUT;
+            claw.state = IntakeClaw.State.OUT;
 
             return !claw.isTargetReached;
         }
@@ -110,7 +110,7 @@ public class CustomActions {
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
             if (arm.state == Arm.State.SAMPLEDEPOSIT){
-                claw.state = Claw.State.OUT;
+                claw.state = IntakeClaw.State.OUT;
                 return !claw.isTargetReached;
             }
             else return true;
@@ -348,7 +348,7 @@ public class CustomActions {
             if (slides.isTargetReached){
                 arm.state = Arm.State.SAMPLEDEPOSIT;
                 if (arm.isTargetReached){
-                    claw.state = Claw.State.OUT;
+                    claw.state = IntakeClaw.State.OUT;
                     if (claw.isTargetReached) {
                         stepDone = true;
                         sampleDropped = true;
@@ -418,7 +418,7 @@ public class CustomActions {
             boolean stepDone = false;
 
             if (slides.isTargetReached){
-                claw.state = Claw.State.OUT;
+                claw.state = IntakeClaw.State.OUT;
                 if (claw.isTargetReached) {
                     arm.state = Arm.State.REST;
                     stepDone = true;
@@ -446,7 +446,7 @@ public class CustomActions {
 
             arm.state = Arm.State.SAMPLEPICKING;
             if (arm.isTargetReached) {
-                claw.state = Claw.State.IN;
+                claw.state = IntakeClaw.State.IN;
                 stepDone = true;
             }
 
