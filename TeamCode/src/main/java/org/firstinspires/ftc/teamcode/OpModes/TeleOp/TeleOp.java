@@ -86,13 +86,16 @@ public class TeleOp extends LinearOpMode {
             if (gamepad1.a) {
                 intakeForearm.state = IntakeForearm.State.OUT;
             }
+            if (gamepad1.b) {
+                intakeForearm.state = IntakeForearm.State.MIDDLE;
+            }
             telemetry.addData("Intake Forearm Telemetry = ", intakeForearm.getClawTelemetry());
 
             //Outtake Forearm Controls
-            if (gamepad1.b) {
+            if (gamepad2.b) {
                 outakeForearm.state = OutakeForearm.State.IN;
             }
-            if (gamepad1.x) {
+            if (gamepad2.x) {
                 outakeForearm.state = OutakeForearm.State.OUT;
             }
             telemetry.addData("Intake Forearm Telemetry = ", outakeForearm.getClawTelemetry());
