@@ -1,3 +1,4 @@
+//hfskyrdljfkdkythfldkf
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
 import com.acmerobotics.roadrunner.Action;
@@ -98,7 +99,7 @@ public class TeleOp extends LinearOpMode {
             if (gamepad2.x) {
                 outakeForearm.state = OutakeForearm.State.OUT;
             }
-            telemetry.addData("Intake Forearm Telemetry = ", outakeForearm.getClawTelemetry());
+            telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getClawTelemetry());
 
 /*
             //IntakeWrist Controls
