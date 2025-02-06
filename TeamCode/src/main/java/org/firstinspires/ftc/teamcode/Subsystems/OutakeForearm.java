@@ -20,7 +20,6 @@ public class OutakeForearm {
     }
 
     public void update() {
-        //switch case
         switch (state) {
             case IN:
                 OutakeForearm.setPosition(0.175);
