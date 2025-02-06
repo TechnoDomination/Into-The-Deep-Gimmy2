@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeClaw {
     private final Servo IntakeClawServo;
-    public State state = State.IN;
+    public State state = State.OUT;
     public boolean isTargetReached = false;
     public static IntakeClaw instance;
 

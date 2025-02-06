@@ -10,7 +10,7 @@ public class IntakeForearm {
     public static IntakeForearm instance;
 
     public enum State {
-        IN, OUT, STOP, MIDDLE
+        IN, OUT, STOP, MIDDLE, TRANSFER
     }
 
     public IntakeForearm(HardwareMap hardwareMap) {
@@ -33,8 +33,12 @@ public class IntakeForearm {
                 IntakeForearm.setPosition(0);
                 break;
             case MIDDLE:
-                IntakeForearm.setPosition(0.5);
+                IntakeForearm.setPosition(0.4);
                 break;
+            case TRANSFER:
+                IntakeForearm.setPosition(0.1);
+                break;
+
         }
 
         if (state == State.IN && IntakeForearm.getPosition() == 1){

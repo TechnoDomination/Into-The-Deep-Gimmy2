@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Util
 class DriveforKotlin {
 
     private fun driveManual(gamepadInput: ArrayList<Float>) {
-        val input = gamepadInput.map { smoothGamepadInput(it.toDouble()) }
+     /*   val input = gamepadInput.map { smoothGamepadInput(it.toDouble()) }
         Log.d("f", input.toString())
         val (axial, lateral, turn) = input
 
@@ -17,6 +17,8 @@ class DriveforKotlin {
         leftBack.power = (rotY + rotX + turn)
         rightFront.power = (rotY + rotX - turn)
         rightBack.power = (rotY - rotX - turn)
+
+      */
     }
 
 

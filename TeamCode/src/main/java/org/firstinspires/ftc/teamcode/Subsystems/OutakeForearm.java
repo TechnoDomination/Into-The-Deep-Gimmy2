@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class OutakeForearm {
     private final Servo OutakeForearm;
-    public State state = State.OUT;
+    public State state = State.IN;
     public boolean isTargetReached = false;
     public static OutakeForearm instance;
 
     public enum State {
-        IN, OUT, STOP, MIDDLE
+        IN, OUT, STOP, MIDDLE,SCORING,TRANSFER,SPECIMENPICK
     }
 
     public OutakeForearm(HardwareMap hardwareMap) {
@@ -22,7 +22,7 @@ public class OutakeForearm {
     public void update() {
         switch (state) {
             case IN:
-                OutakeForearm.setPosition(0);
+                OutakeForearm.setPosition(0.175);
                 break;
 
             case OUT:
@@ -35,6 +35,18 @@ public class OutakeForearm {
 
             case MIDDLE:
                 OutakeForearm.setPosition(0.5);
+                break;
+
+            case SCORING:
+                OutakeForearm.setPosition(0.75);
+                break;
+
+            case TRANSFER:
+                OutakeForearm.setPosition(0.2);
+                break;
+
+            case SPECIMENPICK:
+                OutakeForearm.setPosition(0.85);
                 break;
         }
 

@@ -85,7 +85,7 @@ public class TeleOp extends LinearOpMode {
                 intakeForearm.state = IntakeForearm.State.IN;
             }
             if (gamepad1.a) {
-                intakeForearm.state = IntakeForearm.State.OUT;
+                intakeForearm.state = IntakeForearm.State.TRANSFER;
             }
             if (gamepad1.b) {
                 intakeForearm.state = IntakeForearm.State.MIDDLE;
@@ -93,11 +93,17 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Intake Forearm Telemetry = ", intakeForearm.getClawTelemetry());
 
             //Outtake Forearm Controls
-            if (gamepad2.b) {
-                outakeForearm.state = OutakeForearm.State.IN;
+            if (gamepad2.a) {
+                outakeForearm.state = OutakeForearm.State.TRANSFER;
             }
             if (gamepad2.x) {
-                outakeForearm.state = OutakeForearm.State.OUT;
+                outakeForearm.state = OutakeForearm.State.IN;
+            }
+            if (gamepad2.y) {
+                outakeForearm.state = OutakeForearm.State.SCORING;
+            }
+            if (gamepad2.b) {
+                outakeForearm.state = OutakeForearm.State.SPECIMENPICK;
             }
             telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getClawTelemetry());
 
@@ -112,18 +118,19 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Intake Wrist Telemetry = ", intakeWrist.getIntakeWristTelemetry());
 */
 
-            //Slides Controls
+            //Horiz Slides Controls
             if (gamepad1.dpad_down) {
-                horizSlides.state = HorizSlides.State.FULLIN;
+                horizSlides.state = HorizSlides.State.TRANSFER;
             } else if (gamepad1.dpad_up) {
                 horizSlides.state = HorizSlides.State.FULLOUT;
             }
 
             telemetry.addData("HorizSlides Telemetry = ", horizSlides.getSlidesTelemetry());
 
-            if (gamepad2.dpad_down) {
+            //Vert Slides Controls
+            if (gamepad2.dpad_up) {
                 vertSlides.state = VertSlides.State.HIGHBASKETSAMPLEDROP;
-            } else if (gamepad2.dpad_up) {
+            } else if (gamepad2.dpad_down) {
                 vertSlides.state = VertSlides.State.FULLDOWN;
             } else if (gamepad2.dpad_right) {
                 vertSlides.state = VertSlides.State.SPECIMENALIGNDOWN;

@@ -73,9 +73,9 @@ public class Drive {
         BackRightDCMotor.setPower(0);
     }
 
-    private void driveManual(float gamepadInput) {
-        double input = gamepadInput.stream();
-    }
+   // private void driveManual(float gamepadInput) {
+    //    double input = gamepadInput.stream();
+   // }
 
 
 

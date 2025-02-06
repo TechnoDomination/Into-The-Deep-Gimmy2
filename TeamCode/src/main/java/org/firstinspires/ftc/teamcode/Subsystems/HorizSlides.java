@@ -20,11 +20,12 @@ public class HorizSlides {
 
     public static int fullOut = 1500;
     public static int fullIn = 0;
+    public static int transfer = 450;
 
     public enum State {
         FULLOUT(fullOut),
         FULLIN(fullIn),
-
+        TRANSFER(transfer),
         IDLE(0);
         public final int target;
         State(int Target) {
