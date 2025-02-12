@@ -1,6 +1,7 @@
 //PLEASE WORK PLEASEEEEE
 package org.firstinspires.ftc.teamcode.OpModes.TeleOp;
 
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
@@ -10,9 +11,9 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.teamcode.Actions.CustomActions;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
-import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
 import org.firstinspires.ftc.teamcode.Subsystems.HorizSlides;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeForearm;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeWrist;
 import org.firstinspires.ftc.teamcode.Subsystems.OutakeClaw;
@@ -22,8 +23,8 @@ import org.firstinspires.ftc.teamcode.Subsystems.VertSlides;
 import java.util.ArrayList;
 import java.util.List;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOp",group = "TeleOp")
-public class TeleOp extends LinearOpMode {
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "TeleOpAutomation",group = "TeleOp")
+public class TeleOpAutomation extends LinearOpMode {
 
     private List<Action> runningActions = new ArrayList<>();
     public static DistanceSensor DistanceSensor;
@@ -65,6 +66,8 @@ public class TeleOp extends LinearOpMode {
             //Drive Controls
             drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
+            intakeWrist.state = IntakeWrist.State.MIDDLE;
+
             //Intake Claw Controls
             if (gamepad1.right_bumper) {
                 intakeClaw.state = IntakeClaw.State.CLOSE;
@@ -72,23 +75,10 @@ public class TeleOp extends LinearOpMode {
             if (gamepad1.left_bumper) {
                 intakeClaw.state = IntakeClaw.State.OPEN;
             }
-           /* if (intakeClaw.state == IntakeClaw.State.CLOSE) {
 
-                outakeClaw.state = OutakeClaw.State.OPEN;
-            }
-            if (intakeClaw.state == IntakeClaw.State.OPEN) {
-
-                outakeClaw.state = OutakeClaw.State.CLOSE;
-            }
-            if (outakeClaw.state == OutakeClaw.State.CLOSE) {
-
-                intakeClaw.state = IntakeClaw.State.OPEN;
-            }
-            if (outakeClaw.state == OutakeClaw.State.OPEN) {
-
-                intakeClaw.state = IntakeClaw.State.CLOSE;
-            }*/
             telemetry.addData("Intake Claw Telemetry = ", intakeClaw.getClawTelemetry());
+
+
 
             //Intake Forearm Controls
             if (gamepad1.a) {
@@ -101,18 +91,7 @@ public class TeleOp extends LinearOpMode {
                 intakeForearm.state = IntakeForearm.State.SUBMERSIBLEEDGE;
             }
 
-            telemetry.addData("Intake Forearm Telemetry = ", intakeForearm.getArmTelemetry());
-
-            //IntakeWrist Controls
-            /*if (gamepad1.dpad_right) {
-                intakeWrist.state = IntakeWrist.State.IN;
-            }
-            if (gamepad1.dpad_left) {
-                intakeWrist.state = IntakeWrist.State.MIDDLE;
-            }
-            telemetry.addData("Intake Wrist Telemetry = ", intakeWrist.getIntakeWristTelemetry());
-*/
-            intakeWrist.state = IntakeWrist.State.MIDDLE;
+            telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getArmTelemetry());
 
             //Outtake Forearm Controls
             if (gamepad2.b) {
@@ -129,6 +108,7 @@ public class TeleOp extends LinearOpMode {
             }
             telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getArmTelemetry());
 
+
             //Outtake Claw Controls
             if (gamepad2.right_bumper) {
                 //intakeClaw.state = IntakeClaw.State.OUT;
@@ -140,16 +120,21 @@ public class TeleOp extends LinearOpMode {
             telemetry.addData("Outtake Claw Telemetry = ", outakeClaw.getClawTelemetry());
 
             //Horiz Slides Controls
-            if (gamepad1.dpad_down) {
+           /* if (gamepad1.dpad_down) {
                 horizSlides.state = HorizSlides.State.TRANSFER;
             } else if (gamepad1.dpad_up) {
                 horizSlides.state = HorizSlides.State.FULLOUT;
             }
+            */
 
             telemetry.addData("HorizSlides Telemetry = ", horizSlides.getSlidesTelemetry());
 
+            if (gamepad2.dpad_down) {
+                vertSlides.state = VertSlides.State.FULLDOWN;
+            }
+
             //Vert Slides Controls
-            if (gamepad2.dpad_up) {
+            /*if (gamepad2.dpad_up) {
                 vertSlides.state = VertSlides.State.HIGHBASKETSAMPLEDROP;
             } else if (gamepad2.dpad_down) {
                 vertSlides.state = VertSlides.State.FULLDOWN;
@@ -159,25 +144,9 @@ public class TeleOp extends LinearOpMode {
                 vertSlides.state = VertSlides.State.SPECIMENALIGNUP;
             }
 
-            telemetry.addData("VertSlides Telemetry = ", vertSlides.getSlidesTelemetry());
-/*
-            Arm Controls
-            if (gamepad2.y) {
-                arm.state = Arm.State.VERTICAL;
-            }
-            else if (gamepad2.a) {
-                arm.state = Arm.State.SAMPLEPICKING;
-            } else if (gamepad2.x) {
-                arm.state = Arm.State.SPECIMENPICKING;
-            } else if (gamepad2.b) {
-                arm.state = Arm.State.SPECIMENPICKING;
-            } else if (gamepad2.b && gamepad2.y) {
-                arm.state = Arm.State.SAMPLEDEPOSIT;
-            } else if (gamepad2.dpad_up) {
-                arm.state = Arm.State.HANGINGPOSITION;
-            }
+             */
 
-            telemetry.addData("Arm Telemetry = ", arm.getArmTelemetry());
+            telemetry.addData("VertSlides Telemetry = ", vertSlides.getSlidesTelemetry());
 
             TelemetryPacket packet = new TelemetryPacket();
 
@@ -193,29 +162,78 @@ public class TeleOp extends LinearOpMode {
             }
             runningActions = newActions;
 
-            //Sample scoring
-            if (gamepad2.dpad_up) {
-                telemetry.addData("In Dpad Up ", gamepad1.dpad_up);
-                runningActions.add(
-                        new SequentialAction(
-                                customActions.prepareHighBasket,
-                                new SleepAction(0.1),
-                                customActions.outakeForeArmBasketScoring,
-                                new SleepAction(0.1),
-                                customActions.openOutakeClaw,
-                                new SleepAction(0.1),
-                                customActions.prepareOutakeTransfer
-                                ));
-            }
-*/
-            //Specimen scoring
-           /* if (gamepad1.dpad_down) {
-                telemetry.addData("In Dpad Down ", gamepad1.dpad_down);
+            if (gamepad1.dpad_up){
+                telemetry.addData("In 1Dpad Up ",gamepad1.dpad_up );
                 runningActions.add(new SequentialAction(
+                        customActions.openOutakeClaw,
+                        customActions.intakeWristMiddle,
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25),
+                        customActions.prepareSamplePick,
+                        new SleepAction(.25)
 
                 ));
-*/
-                telemetry.update();
+
+            }
+
+            if (gamepad1.dpad_down){
+                telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
+                runningActions.add(new SequentialAction(
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25),
+                        customActions.prepareIntakeTransfer,
+                        new SleepAction(.5),
+                        customActions.intakeWristMiddle,
+                        customActions.intakeForeArmIn
+
+                ));
+
+            }
+
+
+            if (gamepad2.dpad_up){
+                telemetry.addData("In 2Dpad Up ",gamepad2.dpad_up );
+                runningActions.add(new SequentialAction(
+                        customActions.prepareHighBasket,
+                        new SleepAction(1),
+                        customActions.outakeForeArmBasketScoring,
+                        new SleepAction(.5),
+                        customActions.openOutakeClaw,
+                        new SleepAction(0.5),
+                        customActions.prepareOutakeTransfer
+
+                ));
+
+            }
+
+            if (gamepad2.dpad_left){
+                telemetry.addData("In 2Dpad Left ",gamepad2.dpad_left );
+                runningActions.add(new SequentialAction(
+                        customActions.prepareHighRung,
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25)
+
+                ));
+
+            }
+
+            if (gamepad2.dpad_right){
+                telemetry.addData("In 2Dpad Right ",gamepad2.dpad_right );
+                runningActions.add(new SequentialAction(
+                        customActions.intakeForeArmSubEdge,
+                        customActions.vertSlidesSpecimenAlignUp,
+                        new SleepAction(0.75),
+                        customActions.openOutakeClaw,
+                        new SleepAction(0.5),
+                        customActions.prepareSpecimenPickup
+
+                ));
+
+            }
+
+
+
+            telemetry.update();
 
 
 

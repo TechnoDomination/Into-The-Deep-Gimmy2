@@ -20,7 +20,7 @@ public class HorizSlides {
 
     public static int fullOut = 1500;
     public static int fullIn = 0;
-    public static int transfer = 450;
+    public static int transfer = 250;
 
     public enum State {
         FULLOUT(fullOut),
@@ -60,6 +60,15 @@ public class HorizSlides {
             isTargetReached = true;
         } else {
             isTargetReached = false;
+        }
+
+        if ((state == HorizSlides.State.FULLIN || state == State.TRANSFER) && ((horizSlide.getCurrent(CurrentUnit.AMPS) > 5 ))) {
+            horizSlide.setPower(0);
+
+            horizSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            horizSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            horizSlide.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         }
 
     }

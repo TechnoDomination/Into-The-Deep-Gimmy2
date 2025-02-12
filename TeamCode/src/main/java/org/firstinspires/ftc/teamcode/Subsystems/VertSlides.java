@@ -19,10 +19,10 @@ public class VertSlides {
     public boolean isTargetReached = false;
     public static VertSlides instance;
 
-    public static int highBasketTarget = 2200;
+    public static int highBasketTarget = 2250;
     public static int lowBasketTarget = 1000;
-    public static int specimenAlignDownTarget = 850;
-    public static int specimenAlignUpTarget = 600;
+    public static int specimenAlignDownTarget = 450;
+    public static int specimenAlignUpTarget = 1300;
     public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
     public static int hangingTarget = 1450;
@@ -103,7 +103,8 @@ public class VertSlides {
             isTargetReached = false;
         }
 
-        if ((state == State.FULLDOWN) && ((RightVertSlide.getCurrent(CurrentUnit.AMPS) > 5 || LeftVertSlide.getCurrent(CurrentUnit.AMPS) > 5))){
+
+        if ((state == VertSlides.State.FULLDOWN) && ((RightVertSlide.getCurrent(CurrentUnit.AMPS) > 5 || LeftVertSlide.getCurrent(CurrentUnit.AMPS) > 5))){
             RightVertSlide.setPower(0);
             LeftVertSlide.setPower(0);
 
@@ -115,6 +116,7 @@ public class VertSlides {
 
 
     }
+
 
     public String getSlidesTelemetry(){
 

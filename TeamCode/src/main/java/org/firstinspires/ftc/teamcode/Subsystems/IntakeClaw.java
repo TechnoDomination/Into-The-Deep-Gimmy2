@@ -5,12 +5,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeClaw {
     private final Servo IntakeClawServo;
-    public State state = State.OUT;
+    public State state = State.OPEN;
     public boolean isTargetReached = false;
     public static IntakeClaw instance;
+    private double openPos = 1;
+    private double closePos = 0;
+    private double stopPos = 0;
+    private double middlePos = 0.5;
 
     public enum State {
-        IN, OUT, STOP, MIDDLE
+        CLOSE, OPEN, STOP, MIDDLE
     }
 
     public IntakeClaw(HardwareMap hardwareMap) {
@@ -21,26 +25,26 @@ public class IntakeClaw {
 
     public void update() {
         switch (state) {
-            case IN:
-                IntakeClawServo.setPosition(1);
+            case CLOSE:
+                IntakeClawServo.setPosition(closePos);
                 break;
-            case OUT:
-                IntakeClawServo.setPosition(0);
+            case OPEN:
+                IntakeClawServo.setPosition(openPos);
                 break;
 
             case STOP:
-                IntakeClawServo.setPosition(0);
+                IntakeClawServo.setPosition(stopPos);
                 break;
             case MIDDLE:
-                IntakeClawServo.setPosition(0.5);
+                IntakeClawServo.setPosition(middlePos);
                 break;
         }
 
-        if (state == State.IN && IntakeClawServo.getPosition() == 1){
+        if (state == State.CLOSE && IntakeClawServo.getPosition() == closePos){
             isTargetReached = true;
-        } else if (state == State.OUT && IntakeClawServo.getPosition() == 0) {
+        } else if (state == State.OPEN && IntakeClawServo.getPosition() == openPos) {
             isTargetReached = true;
-        } else if (state == State.MIDDLE && IntakeClawServo.getPosition() == 0.5) {
+        } else if (state == State.MIDDLE && IntakeClawServo.getPosition() == middlePos) {
             isTargetReached = true;
         } else {
             isTargetReached = false;
@@ -52,6 +56,7 @@ public class IntakeClaw {
         String telemetry = "";
         telemetry = telemetry + "\n Intake Claw Position = " + IntakeClawServo.getPosition();
         telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;
+        telemetry = telemetry + "\n Intake Claw State = " + state;
         telemetry = telemetry + "\n ";
         return telemetry;
     }

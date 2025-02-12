@@ -7,20 +7,26 @@ import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.Subsystems.Arm;
+import org.firstinspires.ftc.teamcode.Subsystems.HorizSlides;
 import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
-import org.firstinspires.ftc.teamcode.Subsystems.ClawRotater;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
-import org.firstinspires.ftc.teamcode.Subsystems.Slides;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeForearm;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeWrist;
+import org.firstinspires.ftc.teamcode.Subsystems.OutakeClaw;
+import org.firstinspires.ftc.teamcode.Subsystems.OutakeForearm;
+import org.firstinspires.ftc.teamcode.Subsystems.VertSlides;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class CustomActions {
-    public IntakeClaw claw = IntakeClaw.instance;
-    public ClawRotater clawRotater = ClawRotater.instance;
-    public Arm arm = Arm.instance;
-    public Slides slides = Slides.instance;
+    public IntakeClaw intakeClaw = IntakeClaw.instance;
+    public OutakeClaw outakeClaw = OutakeClaw.instance;
+    public IntakeForearm intakeForearm = IntakeForearm.instance;
+    public OutakeForearm outakeForearm = OutakeForearm.instance;
+    public IntakeWrist intakeWrist = IntakeWrist.instance;
+    public HorizSlides horizSlides = HorizSlides.instance;
+    public VertSlides vertSlides = VertSlides.instance;
     public Drive drive = Drive.instance;
     public boolean sampleDropped = false;
     public static CustomActions instance;
@@ -33,14 +39,23 @@ public class CustomActions {
     }
 
     public void update(){
-        claw.update();
-        clawRotater.update();
-        arm.update();
-        slides.update();
+        horizSlides.update();
+        vertSlides.update();
+        intakeClaw.update();
+        outakeClaw.update();
+        intakeForearm.update();
+        outakeForearm.update();
+        intakeWrist.update();
     }
 
     public List<String> getTelemetry(){
-        return Arrays.asList("Claw = "+claw.getClawTelemetry(),"Claw Rotater = "+clawRotater.getClawRotaterTelemetry(),"Arm = "+ arm.getArmTelemetry(), "Slides = "+ slides.getSlidesTelemetry(), "Slides = "+ slides.getLimitSwitchTelemetry());
+        return Arrays.asList("Intake Claw = "+ intakeClaw.getClawTelemetry(),
+                "Outake Claw = "+ outakeClaw.getClawTelemetry(),
+                "Intake Wrist = "+intakeWrist.getIntakeWristTelemetry(),
+                "Intake Arm = "+ intakeForearm.getArmTelemetry(),
+                "Outake Arm = "+ outakeForearm.getArmTelemetry(),
+                "Horizontal Slides = "+ horizSlides.getSlidesTelemetry(),
+                "Vertical Slides = "+ vertSlides.getSlidesTelemetry());
     }
 
     public Action resestTimer = new Action() {
@@ -65,328 +80,96 @@ public class CustomActions {
         }
     };
 
-    public Action closeClaw = new Action() {
+    public Action intakeWristMiddle = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            claw.state = IntakeClaw.State.IN;
+            intakeWrist.state = IntakeWrist.State.MIDDLE;
 
-            return !claw.isTargetReached;
+            return !intakeWrist.isTargetReached;
         }
     };
 
-    public Action openClaw = new Action() {
+    public Action closeIntakeClaw = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            claw.state = IntakeClaw.State.OUT;
+            intakeClaw.state = IntakeClaw.State.CLOSE;
 
-            return !claw.isTargetReached;
+            return !intakeClaw.isTargetReached;
         }
     };
 
-    public Action midClawRotater = new Action() {
+    public Action openIntakeClaw = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            clawRotater.state = ClawRotater.State.MIDDLE;
+            intakeClaw.state = IntakeClaw.State.OPEN;
 
-            return !clawRotater.isTargetReached;
+            return !intakeClaw.isTargetReached;
         }
     };
 
-    public Action outClawRotater = new Action() {
+    public Action closeOutakeClaw = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            clawRotater.state = ClawRotater.State.OUT;
+            outakeClaw.state = OutakeClaw.State.CLOSE;
 
-            return !clawRotater.isTargetReached;
+            return !outakeClaw.isTargetReached;
         }
     };
 
-    public Action openClawTeleOpHB = new Action() {
+    public Action openOutakeClaw = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            if (arm.state == Arm.State.SAMPLEDEPOSIT){
-                claw.state = IntakeClaw.State.OUT;
-                return !claw.isTargetReached;
-            }
-            else return true;
+            outakeClaw.state = OutakeClaw.State.OPEN;
 
-
+            return !outakeClaw.isTargetReached;
         }
     };
 
-    public Action armVertical = new Action() {
+    public Action intakeForeArmIn = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
+            intakeForearm.state = IntakeForearm.State.IN;
 
-
-            arm.state = Arm.State.VERTICAL;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
+            return !intakeForearm.isTargetReached;
         }
     };
 
-    public Action armSamplePicking = new Action() {
+    public Action intakeForeArmSubEdge = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
+            intakeForearm.state = IntakeForearm.State.SUBMERSIBLEEDGE;
 
-            arm.state = Arm.State.AUTOSPECIMENSAMPLEPICKING;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
+            return !intakeForearm.isTargetReached;
         }
     };
 
-    public Action armBasketSamplePicking = new Action() {
+    public Action intakeForeArmSamplePick = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
+            intakeForearm.state = IntakeForearm.State.SAMPLEPICK;
 
-            arm.state = Arm.State.AUTOBASKETSAMPLEPICKING;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
+            return !intakeForearm.isTargetReached;
         }
     };
 
-    public Action armSpecimenPicking = new Action() {
+    public Action outakeForeArmBasketScoring = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
+            outakeForearm.state = OutakeForearm.State.BASKETSCORING;
 
-            arm.state = Arm.State.SPECIMENPICKING;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
+            return !outakeForearm.isTargetReached;
         }
     };
 
-    public Action armSampleDeposit = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
-
-            arm.state = Arm.State.SAMPLEDEPOSIT;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
-        }
-    };
-
-
-    public Action armRest = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
-
-            arm.state = Arm.State.REST;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
-        }
-    };
-
-    public Action armSubmersible = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
-
-            arm.state = Arm.State.SUBMERSIBLE;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
-        }
-    };
-
-    public Action armSpecimenMove = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
-
-            arm.state = Arm.State.AUTOSPECIMENMOVE;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
-        }
-    };
-
-    public Action armHanging = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            if (!timerStarted) {
-                runTime.reset();
-                timerStarted = true;
-            }
-
-            arm.state = Arm.State.HANGINGPOSITION;
-
-            if (runTime.time() > 4) {
-                timerStarted = false;
-                return false;
-            }
-
-            return !arm.isTargetReached;
-        }
-    };
-
-    public Action slidesHighBasket = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
-
-            return !slides.isTargetReached;
-        }
-    };
-
-    public Action slidesFullDown = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            slides.state = Slides.State.FULLDOWN;
-
-            return !slides.isTargetReached;
-        }
-    };
-
-    public Action slidesHanging = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            slides.state = Slides.State.HANGING;
-
-            return !slides.isTargetReached;
-        }
-    };
-
-    public Action prepareHighBasket = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            arm.state = Arm.State.SAMPLEPREPARATION;
-            slides.state = Slides.State.HIGHBASKETSAMPLEDROP;
-
-            return !slides.isTargetReached;
-        }
-    };
-
-    public Action dropSample = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            boolean stepDone = false;
-
-
-            if (slides.isTargetReached){
-                arm.state = Arm.State.SAMPLEDEPOSIT;
-                if (arm.isTargetReached){
-                    claw.state = IntakeClaw.State.OUT;
-                    if (claw.isTargetReached) {
-                        stepDone = true;
-                        sampleDropped = true;
-                    }
-                }
-            }
-
-            return !stepDone;
-        }
-    };
-
-    public Action afterBasketDrop = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            boolean stepDone = false;
-
-            if (sampleDropped && arm.isTargetReached){
-                sampleDropped = false;
-                arm.state = Arm.State.SAMPLEPREPARATION;
-                slides.state = Slides.State.FULLDOWN;
-            }
-
-            return !slides.isTargetReached;
-        }
-    };
-
-    public Action armSamplePreperation = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            boolean stepDone = false;
-
-            arm.state = Arm.State.SAMPLEPREPARATION;
-
-            return !slides.isTargetReached;
-        }
-    };
 
 
     public Action prepareHighRung = new Action() {
@@ -398,42 +181,20 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            arm.state = Arm.State.SAMPLEDEPOSIT;
-            slides.state = Slides.State.AUTOSPECIMENALIGN;
+            outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
+            vertSlides.state = VertSlides.State.SPECIMENALIGNDOWN;
 
             if (runTime.time() > 3) {
                 timerStarted = false;
                 return false;
             }
 
-            return !slides.isTargetReached && !arm.isTargetReached;
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
 
         }
     };
 
-    public Action hangSpecimen = new Action() {
-        @Override
-        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
-
-            boolean stepDone = false;
-
-            if (slides.isTargetReached){
-                claw.state = IntakeClaw.State.OUT;
-                if (claw.isTargetReached) {
-                    arm.state = Arm.State.REST;
-                    stepDone = true;
-                }
-            }
-
-            if (stepDone) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-    };
-
-    public Action pickSample = new Action() {
+    public Action prepareSpecimenPickup = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
@@ -442,32 +203,22 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            boolean stepDone = false;
+            outakeForearm.state = OutakeForearm.State.SPECIMENPICK;
+            vertSlides.state = VertSlides.State.FULLDOWN;
 
-            arm.state = Arm.State.SAMPLEPICKING;
-            if (arm.isTargetReached) {
-                claw.state = IntakeClaw.State.IN;
-                stepDone = true;
-            }
-
-            if (runTime.time() > 4) {
+            if (runTime.time() > 3) {
                 timerStarted = false;
                 return false;
             }
 
-            if (stepDone) {
-                return false;
-            } else {
-                return true;
-            }
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
+
         }
     };
 
 
 
-    //Test custom actions
-
-    public Action prepareHighRungTest = new Action() {
+    public Action vertSlidesSpecimenAlignUp = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
@@ -476,20 +227,20 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            arm.state = Arm.State.VERTICAL;
-            slides.state = Slides.State.AUTOSPECIMENALIGNTEST;
+            vertSlides.state = VertSlides.State.SPECIMENALIGNUP;
+
 
             if (runTime.time() > 3) {
                 timerStarted = false;
                 return false;
             }
 
-            return !slides.isTargetReached && !arm.isTargetReached;
+            return !vertSlides.isTargetReached;
 
         }
     };
 
-    public Action slidesHighRungDownTest = new Action() {
+    public Action prepareObsZoneParking = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
@@ -498,18 +249,114 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            arm.state = Arm.State.SAMPLEDEPOSIT;
-            slides.state = Slides.State.FULLDOWN;
+            vertSlides.state = VertSlides.State.FULLDOWN;
+            outakeForearm.state = OutakeForearm.State.IN;
+
 
             if (runTime.time() > 3) {
                 timerStarted = false;
                 return false;
             }
 
-            return !slides.isTargetReached;
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
 
         }
     };
+
+    public Action prepareHighBasket = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            vertSlides.state = VertSlides.State.HIGHBASKETSAMPLEDROP;
+            outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
+
+        }
+    };
+
+    public Action prepareOutakeTransfer = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            vertSlides.state = VertSlides.State.FULLDOWN;
+            outakeForearm.state = OutakeForearm.State.IN;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
+
+        }
+    };
+
+    public Action prepareSamplePick = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            horizSlides.state = HorizSlides.State.FULLOUT;
+            intakeForearm.state = IntakeForearm.State.MIDDLE;
+            intakeWrist.state = IntakeWrist.State.MIDDLE;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !horizSlides.isTargetReached && !intakeForearm.isTargetReached;
+
+        }
+    };
+
+    public Action prepareIntakeTransfer = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            horizSlides.state = HorizSlides.State.FULLIN;
+            intakeForearm.state = IntakeForearm.State.SUBMERSIBLEEDGE;
+            intakeWrist.state = IntakeWrist.State.MIDDLE;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !horizSlides.isTargetReached && !intakeForearm.isTargetReached;
+
+        }
+    };
+
 
 
 }

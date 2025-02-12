@@ -8,9 +8,15 @@ public class IntakeForearm {
     public State state = State.OUT;
     public boolean isTargetReached = false;
     public static IntakeForearm instance;
+    private double inPos = 0.75
+            ;
+    private double outPos = 0;
+    private double middlePos = 0.5;
+    private double samplePickPos = 0.15;
+    private double submersibleEdgePos = 0.6;
 
     public enum State {
-        IN, OUT, STOP, MIDDLE, TRANSFER
+        IN, OUT, STOP, MIDDLE, SAMPLEPICK, SUBMERSIBLEEDGE
     }
 
     public IntakeForearm(HardwareMap hardwareMap) {
@@ -22,30 +28,32 @@ public class IntakeForearm {
     public void update() {
         switch (state) {
             case IN:
-                IntakeForearm.setPosition(1);
+                IntakeForearm.setPosition(inPos);
                 break;
 
-            case OUT:
-                IntakeForearm.setPosition(0);
-                break;
-
-            case STOP:
-                IntakeForearm.setPosition(0);
-                break;
             case MIDDLE:
-                IntakeForearm.setPosition(0.4);
+                IntakeForearm.setPosition(middlePos);
                 break;
-            case TRANSFER:
-                IntakeForearm.setPosition(0.1);
+
+            case SAMPLEPICK:
+                IntakeForearm.setPosition(samplePickPos);
+                break;
+
+            case SUBMERSIBLEEDGE:
+                IntakeForearm.setPosition(submersibleEdgePos);
                 break;
 
         }
 
-        if (state == State.IN && IntakeForearm.getPosition() == 1){
+        if (state == State.IN && IntakeForearm.getPosition() == inPos){
             isTargetReached = true;
-        } else if (state == State.OUT && IntakeForearm.getPosition() == 0) {
+        } else if (state == State.OUT && IntakeForearm.getPosition() == outPos) {
             isTargetReached = true;
-        } else if (state == State.MIDDLE && IntakeForearm.getPosition() == 0.5) {
+        } else if (state == State.MIDDLE && IntakeForearm.getPosition() == middlePos) {
+            isTargetReached = true;
+        } else if (state == State.SAMPLEPICK && IntakeForearm.getPosition() == samplePickPos) {
+            isTargetReached = true;
+        } else if (state == State.SUBMERSIBLEEDGE && IntakeForearm.getPosition() == submersibleEdgePos) {
             isTargetReached = true;
         } else {
             isTargetReached = false;
@@ -53,7 +61,7 @@ public class IntakeForearm {
     }
 
 
-    public String getClawTelemetry(){
+    public String getArmTelemetry(){
         String telemetry = "";
         telemetry = telemetry + "\n Intake Forearm Position = " + IntakeForearm.getPosition();
         telemetry = telemetry + "\n Is Target Reached? --> " + isTargetReached;

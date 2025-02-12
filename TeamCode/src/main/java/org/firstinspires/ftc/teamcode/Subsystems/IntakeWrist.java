@@ -5,9 +5,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeWrist {
     private final Servo IntakeWrist;
-    public State state = State.IN;
+    public State state = State.MIDDLE;
     public boolean isTargetReached = false;
     public static IntakeWrist instance;
+    private double inPos = 1;
+    private double outPos = 0;
+    private double stopPos = 0;
+    private double middlePos = 0.33;
 
     public enum State {
         IN, OUT, STOP, MIDDLE
@@ -22,26 +26,26 @@ public class IntakeWrist {
     public void update() {
         switch (state) {
             case IN:
-                IntakeWrist.setPosition(1);
+                IntakeWrist.setPosition(inPos);
                 break;
 
             case OUT:
-                IntakeWrist.setPosition(0);
+                IntakeWrist.setPosition(outPos);
                 break;
 
             case STOP:
-                IntakeWrist.setPosition(0);
+                IntakeWrist.setPosition(stopPos);
                 break;
             case MIDDLE:
-                IntakeWrist.setPosition(0.5);
+                IntakeWrist.setPosition(middlePos);
                 break;
         }
 
-        if (state == State.IN && IntakeWrist.getPosition() == 1){
+        if (state == State.IN && IntakeWrist.getPosition() == inPos){
             isTargetReached = true;
-        } else if (state == State.OUT && IntakeWrist.getPosition() == 0) {
+        } else if (state == State.OUT && IntakeWrist.getPosition() == outPos) {
             isTargetReached = true;
-        } else if (state == State.MIDDLE && IntakeWrist.getPosition() == 0.5) {
+        } else if (state == State.MIDDLE && IntakeWrist.getPosition() == middlePos) {
             isTargetReached = true;
         } else {
             isTargetReached = false;

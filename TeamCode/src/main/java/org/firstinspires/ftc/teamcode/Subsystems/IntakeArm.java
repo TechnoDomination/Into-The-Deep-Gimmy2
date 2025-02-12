@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.teamcode.Util.PIDFController;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
-public class Arm {
+public class IntakeArm {
     public DcMotorEx ArmMotor;
 
     public static double angle = 0.0;
@@ -17,7 +17,7 @@ public class Arm {
     public State state = State.IDLE;
 
     public boolean isTargetReached = false;
-    public static Arm instance;
+    public static IntakeArm instance;
 
 
     public enum State {
@@ -41,7 +41,7 @@ public class Arm {
         }
     }
 
-    public Arm(HardwareMap hardwareMap) {
+    public IntakeArm(HardwareMap hardwareMap) {
         ArmMotor = hardwareMap.get(DcMotorEx.class, "ArmMotor1");
         ArmMotor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         ArmMotor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);

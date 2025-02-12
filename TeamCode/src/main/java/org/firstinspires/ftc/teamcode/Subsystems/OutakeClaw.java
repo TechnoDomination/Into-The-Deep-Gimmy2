@@ -5,12 +5,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class OutakeClaw {
     private final Servo OutakeClawServo;
-    public State state = State.IN;
+    public State state = State.CLOSE;
     public boolean isTargetReached = false;
     public static OutakeClaw instance;
+    private double openPos = 1;
+    private double closePos = 0;
+    private double stopPos = 0;
+    private double middlePos = 0.5;
 
     public enum State {
-        IN, OUT, STOP, MIDDLE
+        CLOSE, OPEN, STOP, MIDDLE
     }
 
     public OutakeClaw(HardwareMap hardwareMap) {
@@ -21,26 +25,26 @@ public class OutakeClaw {
 
     public void update() {
         switch (state) {
-            case IN:
-                OutakeClawServo.setPosition(1);
+            case CLOSE:
+                OutakeClawServo.setPosition(closePos);
                 break;
-            case OUT:
-                OutakeClawServo.setPosition(0);
+            case OPEN:
+                OutakeClawServo.setPosition(openPos);
                 break;
 
             case STOP:
-                OutakeClawServo.setPosition(0);
+                OutakeClawServo.setPosition(stopPos);
                 break;
             case MIDDLE:
-                OutakeClawServo.setPosition(0.5);
+                OutakeClawServo.setPosition(middlePos);
                 break;
         }
 
-        if (state == State.IN && OutakeClawServo.getPosition() == 1){
+        if (state == State.CLOSE && OutakeClawServo.getPosition() == closePos){
             isTargetReached = true;
-        } else if (state == State.OUT && OutakeClawServo.getPosition() == 0) {
+        } else if (state == State.OPEN && OutakeClawServo.getPosition() == openPos) {
             isTargetReached = true;
-        } else if (state == State.MIDDLE && OutakeClawServo.getPosition() == 0.5) {
+        } else if (state == State.MIDDLE && OutakeClawServo.getPosition() == middlePos) {
             isTargetReached = true;
         } else {
             isTargetReached = false;

@@ -9,34 +9,56 @@ import org.firstinspires.ftc.teamcode.Actions.P2P;
 
 public enum Positions {
     //Samples on ground
-    LeftSample1(new Vector2d(-42, -42), 0.0),
-    LeftSample2(new Vector2d(-52, -42), 0.0),
+    //LeftSample1(new Vector2d(-42, -42), 0.0),
+    //LeftSample2(new Vector2d(-52, -42), 0.0),
     //LeftSample3(new Vector2d(-46, 0.0), -PI/2), //original position
     LeftSample3pt2(new Vector2d(-50, -34), -PI*0.25), //a little forward
     LeftSample3(new Vector2d(-44, -44), -PI * 0.25),
     TestNeg(new Vector2d(-40, -40), 0.0),
 
     //Basket related movement
-    Basket(new Vector2d(-43, -48),-PI*0.72),
-    Basket2(new Vector2d(-42.5, -47.5),-PI*0.72),
-    GoFrontSample(new Vector2d(-35, -53), 0.0),
+    //Basket(new Vector2d(-43, -48),-PI*0.72),
+    //Basket2(new Vector2d(-42.5, -47.5),-PI*0.72),
+    //GoFrontSample(new Vector2d(-35, -53), 0.0),
 
     //Specmien related movement
-    HighRung(new Vector2d(8, -38), 0.0),
-    HighRung2(new Vector2d(0, -40), 0.0), //For second specimen place
-    GoFrontTinySpecimen(new Vector2d(8, -31), 0.0),
-    GoFrontTinySpecimen2(new Vector2d(0, -31), 0.0),
+
     GoBackSpecimen(new Vector2d(8, -50), 0.0),
-    TurnSpecimen(new Vector2d(8, -52), PI * 0.5),
+
     SpecimenObZone(new Vector2d(20, -52), PI * 0.5),
     SpecimenObZoneTiny(new Vector2d(28, -52), PI * 0.5),
-    StartingPosition(new Vector2d(8, -52), 0.0),
+
     ObserservationZoneParkingSpecimen(new Vector2d(48, -63), 0.0),
     ObserservationZoneParkingSample(new Vector2d(50, -63), 0.0),
 
 
-    //Test Specmien related movement
-    HighRungTest(new Vector2d(6, -44), 0.0),
+    //Gimmy 2.0 Specmien related movement
+    HighRung1(new Vector2d(-2, -31), 0.0),
+    HighRungTiny1(new Vector2d(-2, -28.5), 0.0),
+    HighRung2(new Vector2d(0, -31), 0.0),
+    HighRungTiny2(new Vector2d(0, -28.5), 0.0),
+    HighRung3(new Vector2d(2, -31), 0.0),
+    HighRungTiny3(new Vector2d(2, -28.5), 0.0),
+    ObsZonePickupSpecimen(new Vector2d(48, -50), 0.0),
+    ObsZonePickupSpecimenTiny(new Vector2d(48, -62), 0.0),
+    Parking(new Vector2d(48, -60), 0.0),
+    PrepareForPushStep1(new Vector2d(35, -45), 0.0),
+    PrepareForPushStep2(new Vector2d(35, -10), 0.0),
+    PrepareForPushStep3(new Vector2d(48, -10), 0.0),
+    PrepareForPushStep4(new Vector2d(45, -10), 0.0),
+    PrepareForPushStep5(new Vector2d(60, -10), 0.0),
+    PushSample1(new Vector2d(48, -55), 0.0),
+    PushSample2(new Vector2d(60, -55), 0.0),
+
+    //Gimmy 2.0 Sample related movement
+    Basket(new Vector2d(-51, -56),PI*0.25),
+    GoFrontSample(new Vector2d(-35, -50), 0.0),
+    LeftSample1(new Vector2d(-42, -51), 0.0),
+    LeftSample2(new Vector2d(-55, -49), 0.0),
+    LeftSample2Alt(new Vector2d(-55, -35), 0.0),
+
+
+
     GoFrontTinySpecimenTest(new Vector2d(6, -35), 0.0),
     HighRung2Test(new Vector2d(-3, -47), 0.0),
     GoFrontTiny2SpecimenTest(new Vector2d(-3, -35), 0.0),
