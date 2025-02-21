@@ -120,6 +120,16 @@ public class CustomActions {
         }
     };
 
+    public Action OutakeClawDown = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+           outakeForearm.state = OutakeForearm.State.IN;
+
+            return !outakeClaw.isTargetReached;
+        }
+    };
+
     public Action openOutakeClaw = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -165,6 +175,26 @@ public class CustomActions {
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
 
             outakeForearm.state = OutakeForearm.State.BASKETSCORING;
+
+            return !outakeForearm.isTargetReached;
+        }
+    };
+
+    public Action outakeForeArmSpecimenScoring = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
+
+            return !outakeForearm.isTargetReached;
+        }
+    };
+
+    public Action outakeForeArmTransfer = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            outakeForearm.state = OutakeForearm.State.IN;
 
             return !outakeForearm.isTargetReached;
         }
@@ -296,7 +326,28 @@ public class CustomActions {
             }
 
             vertSlides.state = VertSlides.State.FULLDOWN;
-            outakeForearm.state = OutakeForearm.State.IN;
+            outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !vertSlides.isTargetReached && !outakeForearm.isTargetReached;
+
+        }
+    };
+
+    public Action outakeArmSpecimenScore = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+            outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
 
 
             if (runTime.time() > 3) {
@@ -345,6 +396,30 @@ public class CustomActions {
             horizSlides.state = HorizSlides.State.FULLIN;
             intakeForearm.state = IntakeForearm.State.SUBMERSIBLEEDGE;
             intakeWrist.state = IntakeWrist.State.MIDDLE;
+
+
+            if (runTime.time() > 3) {
+                timerStarted = false;
+                return false;
+            }
+
+            return !horizSlides.isTargetReached && !intakeForearm.isTargetReached;
+
+        }
+    };
+
+
+
+    public Action vertSlidesDown = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            if (!timerStarted) {
+                runTime.reset();
+                timerStarted = true;
+            }
+
+            vertSlides.state = VertSlides.State.HIGHBASKETSAMPLEDROP;
 
 
             if (runTime.time() > 3) {

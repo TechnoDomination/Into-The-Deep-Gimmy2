@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.Util.PIDFController;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 
@@ -30,7 +31,7 @@ public class Drive {
         BackRightDCMotor = hardwareMap.get(DcMotorEx.class, "BackRightDCMotor");
 
         FrontLeftDCMotor.setDirection(DcMotor.Direction.REVERSE);
-        FrontRightDCMotor.setDirection(DcMotor.Direction.REVERSE);
+        FrontRightDCMotor.setDirection(DcMotor.Direction.FORWARD);
         BackLeftDCMotor.setDirection(DcMotor.Direction.REVERSE);
         BackRightDCMotor.setDirection(DcMotor.Direction.FORWARD);
 
@@ -48,14 +49,14 @@ public class Drive {
 
     public void update(double forward, double strafe, double rotate) {
 
-//        double h = -Localizer.pose.getHeading();
-//        double rotX = strafe * Math.cos(h) - forward * Math.sin(h);
-//        double rotY = strafe * Math.sin(h) + forward * Math.cos(h);
-//
-//        double frontLeftPower = (rotY + rotX + rotate);
-//        double frontRightPower = (rotY - rotX - rotate);
-//        double backLeftPower = (rotY - rotX + rotate);
-//        double backRightPower = (rotY + rotX - rotate);
+       /* double h = -Localizer.pose.getHeading();
+        double rotX = strafe * Math.cos(h) - forward * Math.sin(h);
+        double rotY = strafe * Math.sin(h) + forward * Math.cos(h);
+
+        double frontLeftPower = (rotY + rotX + rotate);
+        double frontRightPower = (rotY - rotX - rotate);
+        double backLeftPower = (rotY - rotX + rotate);
+        double backRightPower = (rotY + rotX - rotate);*/
         double frontLeftPower = (forward + strafe + rotate);
         double frontRightPower = (forward - strafe - rotate);
         double backLeftPower = (forward - strafe + rotate);

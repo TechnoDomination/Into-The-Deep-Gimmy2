@@ -97,7 +97,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 Positions.PrepareForPushStep4.runToExact,
                                 new SleepAction(.25),
                                 Positions.PrepareForPushStep5.runToExact,
-                                new SleepAction(.25),
+                                new SleepAction(1),
                                 Positions.PushSample2.runToExact,
                                 new SleepAction(.25),
 

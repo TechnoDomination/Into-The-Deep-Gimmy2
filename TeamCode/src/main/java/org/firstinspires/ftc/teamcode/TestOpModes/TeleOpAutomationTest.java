@@ -29,6 +29,7 @@ public class TeleOpAutomationTest extends LinearOpMode {
     private List<Action> runningActions = new ArrayList<>();
     public static DistanceSensor DistanceSensor;
     private double distanceInch;
+    public boolean specimenOrSample;
 
 
     @Override
@@ -62,6 +63,13 @@ public class TeleOpAutomationTest extends LinearOpMode {
             telemetry.addData("X pos", Localizer.pose.getX());
             telemetry.addData("Y pos", Localizer.pose.getY());
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
+
+            //Mode changer
+            /*if (gamepad2.left_trigger) {
+                specimenOrSample = true;
+            } else if (gamepad2.) {
+                specimenOrSample = false;
+            }*/
 
             //Drive Controls
             drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
@@ -117,6 +125,9 @@ public class TeleOpAutomationTest extends LinearOpMode {
             if (gamepad2.left_bumper) {
                 outakeClaw.state = OutakeClaw.State.OPEN;
             }
+            if (gamepad2.left_bumper && outakeForearm.state == OutakeForearm.State.SPECIMENSCORING) {
+                outakeClaw.state = OutakeClaw.State.CLOSE;
+            }
             telemetry.addData("Outtake Claw Telemetry = ", outakeClaw.getClawTelemetry());
 
             //Horiz Slides Controls
@@ -166,6 +177,7 @@ public class TeleOpAutomationTest extends LinearOpMode {
                 telemetry.addData("In 1Dpad Up ",gamepad1.dpad_up );
                 runningActions.add(new SequentialAction(
                         customActions.openOutakeClaw,
+                        customActions.outakeForeArmSpecimenScoring,
                         customActions.intakeWristMiddle,
                         customActions.intakeForeArmSubEdge,
                         new SleepAction(0.25),
@@ -173,8 +185,20 @@ public class TeleOpAutomationTest extends LinearOpMode {
                         new SleepAction(.25)
 
                 ));
-
             }
+
+        /*    if (gamepad1.dpad_up && specimenOrSample == false){
+                telemetry.addData("In 1Dpad Up ",gamepad1.dpad_up );
+                runningActions.add(new SequentialAction(
+                        customActions.openOutakeClaw,
+                        customActions.intakeWristMiddle,
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25),
+                        customActions.prepareSamplePick,
+                        new SleepAction(.25)
+
+                ));
+            }*/
 
             if (gamepad1.dpad_down){
                 telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
@@ -190,6 +214,22 @@ public class TeleOpAutomationTest extends LinearOpMode {
 
             }
 
+           /* if (gamepad1.dpad_down && specimenOrSample == false){
+                telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
+                runningActions.add(new SequentialAction(
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25),
+                        customActions.prepareIntakeTransfer,
+                        new SleepAction(.5),
+                        customActions.intakeWristMiddle,
+                        customActions.intakeForeArmIn,
+                        new SleepAction(.15),
+                        customActions.closeOutakeClaw,
+                        customActions.outakeForeArmSpecimenScoring
+
+                ));
+
+            }*/
 
             if (gamepad2.dpad_up){
                 telemetry.addData("In 2Dpad Up ",gamepad2.dpad_up );

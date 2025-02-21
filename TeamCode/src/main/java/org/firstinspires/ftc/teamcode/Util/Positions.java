@@ -40,7 +40,7 @@ public enum Positions {
     HighRung3(new Vector2d(2, -31), 0.0),
     HighRungTiny3(new Vector2d(2, -28.5), 0.0),
     ObsZonePickupSpecimen(new Vector2d(48, -50), 0.0),
-    ObsZonePickupSpecimenTiny(new Vector2d(48, -62), 0.0),
+    ObsZonePickupSpecimenTiny(new Vector2d(48, -60), 0.0),
     Parking(new Vector2d(48, -60), 0.0),
     PrepareForPushStep1(new Vector2d(35, -45), 0.0),
     PrepareForPushStep2(new Vector2d(35, -10), 0.0),

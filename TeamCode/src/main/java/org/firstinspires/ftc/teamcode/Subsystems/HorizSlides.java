@@ -18,7 +18,7 @@ public class HorizSlides {
     public boolean isTargetReached = false;
     public static HorizSlides instance;
 
-    public static int fullOut = 1500;
+    public static int fullOut = 1200;
     public static int fullIn = 0;
     public static int transfer = 250;
 
@@ -62,7 +62,7 @@ public class HorizSlides {
             isTargetReached = false;
         }
 
-        if ((state == HorizSlides.State.FULLIN || state == State.TRANSFER) && ((horizSlide.getCurrent(CurrentUnit.AMPS) > 5 ))) {
+        if ((state == HorizSlides.State.FULLIN || state == State.TRANSFER) && (horizSlide.getCurrent(CurrentUnit.AMPS) > 5 ) && (horizSlide.getCurrentPosition() < 500)) {
             horizSlide.setPower(0);
 
             horizSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

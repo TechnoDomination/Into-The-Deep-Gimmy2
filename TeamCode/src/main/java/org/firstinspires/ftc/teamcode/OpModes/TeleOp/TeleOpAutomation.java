@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.Subsystems.IntakeWrist;
 import org.firstinspires.ftc.teamcode.Subsystems.OutakeClaw;
 import org.firstinspires.ftc.teamcode.Subsystems.OutakeForearm;
 import org.firstinspires.ftc.teamcode.Subsystems.VertSlides;
+import org.firstinspires.ftc.teamcode.Util.SmoothGamepad;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class TeleOpAutomation extends LinearOpMode {
         VertSlides vertSlides = new VertSlides(hardwareMap);
         //Arm arm = new Arm(hardwareMap);
         CustomActions customActions = new CustomActions(hardwareMap);
+        SmoothGamepad smoothGamepad = new SmoothGamepad();
 
         waitForStart();
         while (opModeIsActive() && !isStopRequested()) {
@@ -64,9 +66,16 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
 
             //Drive Controls
-            drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+           drive.update(smoothGamepad.smoothGamepad( -gamepad1.left_stick_y), smoothGamepad.smoothGamepad(gamepad1.left_stick_x), smoothGamepad.smoothGamepad(gamepad1.right_stick_x));
+           telemetry.addData("Power of left_stick_y", smoothGamepad.smoothGamepad( -gamepad1.left_stick_y));
+            telemetry.addData("Power of left_stick_x", smoothGamepad.smoothGamepad( gamepad1.left_stick_x));
+            telemetry.addData("Power of right_stick_x", smoothGamepad.smoothGamepad(gamepad1.right_stick_x));
+            telemetry.addData("Gamepad input left_stick_x", gamepad1.left_stick_x);
+            telemetry.addData("Gamepad left_stick_y", -gamepad1.left_stick_y);
+            telemetry.addData("Gamepad right_stick_x", gamepad1.right_stick_x);
 
-            intakeWrist.state = IntakeWrist.State.MIDDLE;
+            //intakeWrist.state = IntakeWrist.State.MIDDLE;
 
             //Intake Claw Controls
             if (gamepad1.right_bumper) {
@@ -77,8 +86,6 @@ public class TeleOpAutomation extends LinearOpMode {
             }
 
             telemetry.addData("Intake Claw Telemetry = ", intakeClaw.getClawTelemetry());
-
-
 
             //Intake Forearm Controls
             if (gamepad1.a) {
@@ -92,6 +99,15 @@ public class TeleOpAutomation extends LinearOpMode {
             }
 
             telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getArmTelemetry());
+
+            //IntakeWrist Controls
+            if (gamepad1.dpad_right) {
+                intakeWrist.state = IntakeWrist.State.IN;
+            }
+            if (gamepad1.dpad_left) {
+                intakeWrist.state = IntakeWrist.State.OUT;
+            }
+            telemetry.addData("Intake Wrist Telemetry = ", intakeWrist.getIntakeWristTelemetry());
 
             //Outtake Forearm Controls
             if (gamepad2.b) {
@@ -166,6 +182,7 @@ public class TeleOpAutomation extends LinearOpMode {
                 telemetry.addData("In 1Dpad Up ",gamepad1.dpad_up );
                 runningActions.add(new SequentialAction(
                         customActions.openOutakeClaw,
+                        customActions.outakeForeArmSpecimenScoring,
                         customActions.intakeWristMiddle,
                         customActions.intakeForeArmSubEdge,
                         new SleepAction(0.25),
@@ -179,13 +196,22 @@ public class TeleOpAutomation extends LinearOpMode {
             if (gamepad1.dpad_down){
                 telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
                 runningActions.add(new SequentialAction(
+                        customActions.openOutakeClaw,
                         customActions.intakeForeArmSubEdge,
                         new SleepAction(0.25),
                         customActions.prepareIntakeTransfer,
                         new SleepAction(.5),
                         customActions.intakeWristMiddle,
-                        customActions.intakeForeArmIn
-
+                        new SleepAction(.5),
+                        customActions.intakeForeArmIn,
+                        new SleepAction(.5),
+                        customActions.OutakeClawDown,
+                        new SleepAction(.5),
+                        customActions.closeOutakeClaw,
+                        new SleepAction(.5),
+                        customActions.openIntakeClaw,
+                        new SleepAction(.5),
+                        customActions.outakeArmSpecimenScore
                 ));
 
             }
