@@ -66,16 +66,10 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
 
             //Drive Controls
-            //drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+           // drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
            drive.update(smoothGamepad.smoothGamepad( -gamepad1.left_stick_y), smoothGamepad.smoothGamepad(gamepad1.left_stick_x), smoothGamepad.smoothGamepad(gamepad1.right_stick_x));
-           telemetry.addData("Power of left_stick_y", smoothGamepad.smoothGamepad( -gamepad1.left_stick_y));
-            telemetry.addData("Power of left_stick_x", smoothGamepad.smoothGamepad( gamepad1.left_stick_x));
-            telemetry.addData("Power of right_stick_x", smoothGamepad.smoothGamepad(gamepad1.right_stick_x));
-            telemetry.addData("Gamepad input left_stick_x", gamepad1.left_stick_x);
-            telemetry.addData("Gamepad left_stick_y", -gamepad1.left_stick_y);
-            telemetry.addData("Gamepad right_stick_x", gamepad1.right_stick_x);
 
-            //intakeWrist.state = IntakeWrist.State.MIDDLE;
+            intakeWrist.state = IntakeWrist.State.MIDDLE;
 
             //Intake Claw Controls
             if (gamepad1.right_bumper) {
@@ -101,14 +95,14 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getArmTelemetry());
 
             //IntakeWrist Controls
-            if (gamepad1.dpad_right) {
+            /*if (gamepad1.dpad_right) {
                 intakeWrist.state = IntakeWrist.State.IN;
             }
             if (gamepad1.dpad_left) {
                 intakeWrist.state = IntakeWrist.State.OUT;
             }
             telemetry.addData("Intake Wrist Telemetry = ", intakeWrist.getIntakeWristTelemetry());
-
+*/
             //Outtake Forearm Controls
             if (gamepad2.b) {
                 outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;

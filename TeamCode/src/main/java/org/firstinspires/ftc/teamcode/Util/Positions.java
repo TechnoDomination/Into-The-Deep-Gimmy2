@@ -58,7 +58,6 @@ public enum Positions {
     LeftSample2Alt(new Vector2d(-55, -35), 0.0),
 
 
-
     GoFrontTinySpecimenTest(new Vector2d(6, -35), 0.0),
     HighRung2Test(new Vector2d(-3, -47), 0.0),
     GoFrontTiny2SpecimenTest(new Vector2d(-3, -35), 0.0),
@@ -81,3 +80,4 @@ public enum Positions {
 
     public final P2P runToExact;
 }
+
