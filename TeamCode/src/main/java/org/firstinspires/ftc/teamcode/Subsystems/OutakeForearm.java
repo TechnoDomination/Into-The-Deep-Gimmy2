@@ -5,20 +5,21 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class OutakeForearm {
     private final Servo OutakeForearm;
-    public State state = State.IN;
+    public State state = State.STOP;
     public boolean isTargetReached = false;
     public static OutakeForearm instance;
-    private double inPos = 0.1;
-    private double outPos = 1;
+    private double inPos = 1;
+    private double outPos = 0;
     private double stopPos = 0;
     private double middlePos = 0.5 ;
-    private double basketScoringPos = 0.8;
-    private double specimenScoringPos = 0.45;
-    private double specimenPickPos = 1;
+    private double basketScoringPos = 0.4;
+    private double specimenScoringPos = 0.7;
+    private double specimenPickPos = 0;
+    private double armTest = 0.3;
 
 
     public enum State {
-        IN, OUT, STOP, MIDDLE, BASKETSCORING, SPECIMENSCORING,SPECIMENPICK
+        IN, OUT, STOP, MIDDLE, BASKETSCORING, SPECIMENSCORING,SPECIMENPICK, ARMTEST
     }
 
     public OutakeForearm(HardwareMap hardwareMap) {
@@ -51,6 +52,10 @@ public class OutakeForearm {
 
             case SPECIMENPICK:
                 OutakeForearm.setPosition(specimenPickPos);
+                break;
+
+            case ARMTEST:
+                OutakeForearm.setPosition(armTest);
                 break;
         }
 

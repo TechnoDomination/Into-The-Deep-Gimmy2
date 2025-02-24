@@ -130,12 +130,12 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("Outtake Claw Telemetry = ", outakeClaw.getClawTelemetry());
 
             //Horiz Slides Controls
-           /* if (gamepad1.dpad_down) {
+            if (gamepad1.dpad_down) {
                 horizSlides.state = HorizSlides.State.TRANSFER;
             } else if (gamepad1.dpad_up) {
                 horizSlides.state = HorizSlides.State.FULLOUT;
             }
-            */
+
 
             telemetry.addData("HorizSlides Telemetry = ", horizSlides.getSlidesTelemetry());
 
@@ -144,7 +144,7 @@ public class TeleOpAutomation extends LinearOpMode {
             }
 
             //Vert Slides Controls
-            /*if (gamepad2.dpad_up) {
+            if (gamepad2.dpad_up) {
                 vertSlides.state = VertSlides.State.HIGHBASKETSAMPLEDROP;
             } else if (gamepad2.dpad_down) {
                 vertSlides.state = VertSlides.State.FULLDOWN;
@@ -154,14 +154,14 @@ public class TeleOpAutomation extends LinearOpMode {
                 vertSlides.state = VertSlides.State.SPECIMENALIGNUP;
             }
 
-             */
+
 
             telemetry.addData("VertSlides Telemetry = ", vertSlides.getSlidesTelemetry());
 
             TelemetryPacket packet = new TelemetryPacket();
 
             // updated based on gamepads
-
+/*
             // update running actions
             List<Action> newActions = new ArrayList<>();
             for (Action action : runningActions) {
@@ -251,7 +251,7 @@ public class TeleOpAutomation extends LinearOpMode {
 
             }
 
-
+*/
 
             telemetry.update();
 

@@ -20,7 +20,7 @@ public class HorizSlides {
 
     public static int fullOut = 1200;
     public static int fullIn = 0;
-    public static int transfer = 250;
+    public static int transfer = 0;
 
     public enum State {
         FULLOUT(fullOut),
