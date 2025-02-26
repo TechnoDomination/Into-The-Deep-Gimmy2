@@ -170,6 +170,16 @@ public class CustomActions {
         }
     };
 
+    public Action intakeForeArmMiddle = new Action() {
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+
+            intakeForearm.state = IntakeForearm.State.MIDDLE;
+
+            return !intakeForearm.isTargetReached;
+        }
+    };
+
     public Action outakeForeArmBasketScoring = new Action() {
         @Override
         public boolean run(@NonNull TelemetryPacket telemetryPacket) {
@@ -325,8 +335,9 @@ public class CustomActions {
                 timerStarted = true;
             }
 
-            vertSlides.state = VertSlides.State.FULLDOWN;
             outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
+            vertSlides.state = VertSlides.State.FULLDOWN;
+
 
 
             if (runTime.time() > 3) {

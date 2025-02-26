@@ -11,7 +11,7 @@ public class IntakeWrist {
     private double inPos = 1;
     private double outPos = 0;
     private double stopPos = 0;
-    private double middlePos = 0.33;
+    private double middlePos = 0.4;
 
     public enum State {
         IN, OUT, STOP, MIDDLE

@@ -69,7 +69,7 @@ public class TeleOpAutomation extends LinearOpMode {
            // drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
            drive.update(smoothGamepad.smoothGamepad( -gamepad1.left_stick_y), smoothGamepad.smoothGamepad(gamepad1.left_stick_x), smoothGamepad.smoothGamepad(gamepad1.right_stick_x));
 
-            intakeWrist.state = IntakeWrist.State.MIDDLE;
+            //intakeWrist.state = IntakeWrist.State.MIDDLE;
 
             //Intake Claw Controls
             if (gamepad1.right_bumper) {
@@ -95,14 +95,14 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("Outtake Forearm Telemetry = ", outakeForearm.getArmTelemetry());
 
             //IntakeWrist Controls
-            /*if (gamepad1.dpad_right) {
+            if (gamepad1.dpad_right) {
                 intakeWrist.state = IntakeWrist.State.IN;
             }
             if (gamepad1.dpad_left) {
-                intakeWrist.state = IntakeWrist.State.OUT;
+                intakeWrist.state = IntakeWrist.State.MIDDLE;
             }
             telemetry.addData("Intake Wrist Telemetry = ", intakeWrist.getIntakeWristTelemetry());
-*/
+
             //Outtake Forearm Controls
             if (gamepad2.b) {
                 outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
@@ -161,7 +161,7 @@ public class TeleOpAutomation extends LinearOpMode {
             TelemetryPacket packet = new TelemetryPacket();
 
             // updated based on gamepads
-/*
+
             // update running actions
             List<Action> newActions = new ArrayList<>();
             for (Action action : runningActions) {
@@ -198,14 +198,14 @@ public class TeleOpAutomation extends LinearOpMode {
                         customActions.intakeWristMiddle,
                         new SleepAction(.5),
                         customActions.intakeForeArmIn,
-                        new SleepAction(.5),
-                        customActions.OutakeClawDown,
-                        new SleepAction(.5),
-                        customActions.closeOutakeClaw,
-                        new SleepAction(.5),
-                        customActions.openIntakeClaw,
-                        new SleepAction(.5),
-                        customActions.outakeArmSpecimenScore
+                        new SleepAction(.5)
+                        //customActions.OutakeClawDown,
+                        //new SleepAction(.5),
+                        //customActions.closeOutakeClaw,
+                        //new SleepAction(.5),
+                        //customActions.openIntakeClaw,
+                        //new SleepAction(.5),
+                        //customActions.outakeArmSpecimenScore
                 ));
 
             }
@@ -230,7 +230,7 @@ public class TeleOpAutomation extends LinearOpMode {
                 telemetry.addData("In 2Dpad Left ",gamepad2.dpad_left );
                 runningActions.add(new SequentialAction(
                         customActions.prepareHighRung,
-                        customActions.intakeForeArmSubEdge,
+                        customActions.intakeForeArmMiddle,
                         new SleepAction(0.25)
 
                 ));
@@ -240,7 +240,7 @@ public class TeleOpAutomation extends LinearOpMode {
             if (gamepad2.dpad_right){
                 telemetry.addData("In 2Dpad Right ",gamepad2.dpad_right );
                 runningActions.add(new SequentialAction(
-                        customActions.intakeForeArmSubEdge,
+                        customActions.intakeForeArmMiddle,
                         customActions.vertSlidesSpecimenAlignUp,
                         new SleepAction(0.75),
                         customActions.openOutakeClaw,
@@ -251,7 +251,7 @@ public class TeleOpAutomation extends LinearOpMode {
 
             }
 
-*/
+
 
             telemetry.update();
 

@@ -11,7 +11,7 @@ public class IntakeForearm {
     private double inPos = 0.75
             ;
     private double outPos = 0;
-    private double middlePos = 0.5;
+    private double middlePos = 0.4;
     private double samplePickPos = 0.15;
     private double submersibleEdgePos = 0.6;
 

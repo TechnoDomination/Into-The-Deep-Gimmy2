@@ -33,14 +33,15 @@ public enum Positions {
 
 
     //Gimmy 2.0 Specmien related movement
-    HighRung1(new Vector2d(-2, -31), 0.0),
-    HighRungTiny1(new Vector2d(-2, -28.5), 0.0),
-    HighRung2(new Vector2d(0, -31), 0.0),
-    HighRungTiny2(new Vector2d(0, -28.5), 0.0),
-    HighRung3(new Vector2d(2, -31), 0.0),
-    HighRungTiny3(new Vector2d(2, -28.5), 0.0),
+    HighRung1(new Vector2d(-2, -35), 0.0),
+    HighRungTiny1(new Vector2d(-2, -27.5), 0.0),
+    //HighRungTiny1_2(new Vector2d(-2, -27.3), 0.0),
+    HighRung2(new Vector2d(0, -35), 0.0),
+    HighRungTiny2(new Vector2d(0, -28), 0.0),
+    HighRung3(new Vector2d(2, -35), 0.0),
+    HighRungTiny3(new Vector2d(2, -28), 0.0),
     ObsZonePickupSpecimen(new Vector2d(48, -50), 0.0),
-    ObsZonePickupSpecimenTiny(new Vector2d(48, -60), 0.0),
+    ObsZonePickupSpecimenTiny(new Vector2d(48, -62), 0.0),
     Parking(new Vector2d(48, -60), 0.0),
     PrepareForPushStep1(new Vector2d(35, -45), 0.0),
     PrepareForPushStep2(new Vector2d(35, -10), 0.0),
