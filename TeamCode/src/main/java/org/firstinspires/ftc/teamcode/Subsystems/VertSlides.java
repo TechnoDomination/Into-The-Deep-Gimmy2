@@ -14,7 +14,7 @@ public class VertSlides {
     public DcMotorEx LeftVertSlide;
     public State state = State.IDLE;
 
-    public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0,0.0));
+    public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0000,0.0));
 
     public boolean isTargetReached = false;
     public static VertSlides instance;
@@ -22,7 +22,7 @@ public class VertSlides {
     public static int highBasketTarget = 2250;
     public static int lowBasketTarget = 1000;
     public static int specimenAlignDownTarget = 500;
-    public static int specimenAlignUpTarget = 1250;
+    public static int specimenAlignUpTarget = 1245;
     public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
     public static int hangingTarget = 1450;

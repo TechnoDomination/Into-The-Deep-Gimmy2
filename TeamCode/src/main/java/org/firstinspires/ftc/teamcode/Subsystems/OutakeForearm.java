@@ -14,7 +14,7 @@ public class OutakeForearm {
     private double middlePos = 0.5 ;
     private double basketScoringPos = 0.3;
     private double specimenScoringPos = 0.65;
-    private double specimenPickPos = 0.05;
+    private double specimenPickPos = 0.1;
     private double armTest = 0.3;
 
 

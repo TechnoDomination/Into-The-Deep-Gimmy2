@@ -24,16 +24,16 @@ import org.firstinspires.ftc.teamcode.Util.Positions;
 @Autonomous(name = "Auto Right Specimen", group = "TestOpModes")
 public class AutoSpecimen extends LinearOpMode {
 
-    public static double p = 0.35, i = 0.0001, d = 0.03;
-    public static double p2 = 0.06,i2 = 0.0001, d2 = 0.03;
-    public static double p3 = 1.2,i3 = 0.0,d3 = 0.08;
+    public static double p = 2, i = 0.0001, d = 0.04;
+    public static double p2 = 1,i2 = 0.0001, d2 = 0.03;
+    public static double p3 = 2,i3 = 0.0,d3 = 0.08;
 
 
     @Override
     public void runOpMode() {
         //telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Poses(8.0,-63.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(15.0,-63.0,0.0));
         Drive drive = new Drive(hardwareMap);
         IntakeClaw intakeClaw = new IntakeClaw(hardwareMap);
         OutakeClaw outakeClaw = new OutakeClaw(hardwareMap);
@@ -63,15 +63,15 @@ public class AutoSpecimen extends LinearOpMode {
                         },
                         new SequentialAction(
                                 //Go to rung - hang specimen 1
-                                customActions.openIntakeClaw,
+                              /*  customActions.openIntakeClaw,
                                 new SleepAction(0.2),
                                 customActions.closeOutakeClaw,
                                 new SleepAction(0.2),
                                 customActions.prepareHighRung,
                                 customActions.resestTimer,
-                                new SleepAction(0.2),
+                                new SleepAction(0.2),*/
                                 customActions.intakeForeArmMiddle,
-                                new SleepAction(0.25),
+                                /*new SleepAction(0.25),
                                 //Positions.HighRung1.runToExact,
                                 //new SleepAction(.25),
                                 Positions.HighRungTiny1.runToExact,
@@ -80,7 +80,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 new ParallelAction(
                                         Positions.HighRungTiny1.runToExact,
                                         customActions.vertSlidesSpecimenAlignUp
-                                ),
+                                ),*/
 
                                 new SleepAction(.5),
                                 customActions.openOutakeClaw,
@@ -105,7 +105,9 @@ public class AutoSpecimen extends LinearOpMode {
 
                                 //pick up specimen 2
                                 Positions.ObsZonePickupSpecimen.runToExact,
-                                new SleepAction(1),
+                                new SleepAction(0.1),
+                                customActions.stopDrive,
+                                new SleepAction(1.5),
                                 Positions.ObsZonePickupSpecimenTiny.runToExact,
                                 new SleepAction(.25),
                                 customActions.stopDrive,
@@ -126,6 +128,8 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(.5),
                                 customActions.openOutakeClaw,
                                 new SleepAction(0.25),
+                                customActions.intakeForeArmSubEdge,
+                                new SleepAction(0.25),
 
                                 //Pickup specimen 3
                                 customActions.prepareSpecimenPickup,
@@ -137,6 +141,8 @@ public class AutoSpecimen extends LinearOpMode {
                                 customActions.closeOutakeClaw,
                                 new SleepAction(0.25),
                                 customActions.prepareHighRung,
+                                new SleepAction(0.25),
+                                customActions.intakeForeArmMiddle,
                                 new SleepAction(0.25),
                                 Positions.HighRung3.runToExact,
                                 new SleepAction(.25),
@@ -150,6 +156,38 @@ public class AutoSpecimen extends LinearOpMode {
 
                                 new SleepAction(.5),
                                 customActions.openOutakeClaw,
+                                new SleepAction(0.25),
+                                customActions.intakeForeArmSubEdge,
+                                new SleepAction(0.25),
+
+                                customActions.stopDrive,
+                                //Pickup specimen 4
+                                customActions.prepareSpecimenPickup,
+                                Positions.ObsZonePickupSpecimen.runToExact,
+                                new SleepAction(0.5),
+                                Positions.ObsZonePickupSpecimenTiny.runToExact,
+                                new SleepAction(.25),
+                                customActions.stopDrive,
+                                customActions.closeOutakeClaw,
+                                new SleepAction(0.25),
+                                customActions.prepareHighRung,
+                                new SleepAction(0.25),
+                                customActions.intakeForeArmMiddle,
+                                new SleepAction(0.25),
+                               Positions.HighRung1.runToExact,
+                               new SleepAction(.25),
+                                Positions.HighRungTiny1.runToExact,
+                                new SleepAction(.25),
+                                customActions.stopDrive,
+                                new ParallelAction(
+                                        Positions.HighRungTiny1.runToExact,
+                                        customActions.vertSlidesSpecimenAlignUp
+                                ),
+
+                                new SleepAction(.5),
+                                customActions.openOutakeClaw,
+                                new SleepAction(0.25),
+                                customActions.intakeForeArmSubEdge,
                                 new SleepAction(0.25),
 
                                 new ParallelAction(

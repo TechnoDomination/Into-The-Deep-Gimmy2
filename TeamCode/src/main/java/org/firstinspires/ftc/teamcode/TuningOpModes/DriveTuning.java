@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TuningOpModes;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -11,6 +12,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Localizer;
 import org.firstinspires.ftc.teamcode.GoBildaPinPointOdo.Poses;
 import org.firstinspires.ftc.teamcode.Subsystems.Drive;
+import org.firstinspires.ftc.teamcode.Subsystems.HorizSlides;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeClaw;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeWrist;
+import org.firstinspires.ftc.teamcode.Subsystems.OutakeClaw;
+import org.firstinspires.ftc.teamcode.Subsystems.OutakeForearm;
+import org.firstinspires.ftc.teamcode.Subsystems.IntakeForearm;
+import org.firstinspires.ftc.teamcode.Actions.CustomActions;
+import org.firstinspires.ftc.teamcode.Subsystems.VertSlides;
 import org.firstinspires.ftc.teamcode.Util.PIDFParams;
 import org.firstinspires.ftc.teamcode.Util.Positions;
 
@@ -20,13 +29,13 @@ public class DriveTuning extends LinearOpMode {
 
     public static double p = 0.09, i = 0.0001, d = 0.01;
     public static double p2 = 0.06,i2 = 0.0001, d2 = 0.01;
-    public static double p3 = 1.2,i3 = 0.0001,d3 = 0.08;
+    public static double p3 = 1.2,i3 = 0.0,d3 = 0.08;
 
     @Override
     public void runOpMode() {
-        //telemetry = FtcDashboard.getInstance().getTelemetry();
+       // telemetry = FtcDashboard.getInstance().getTelemetry();
 
-        Localizer localizer = new Localizer(hardwareMap, new Poses(0.0,0.0,0.0));
+        Localizer localizer = new Localizer(hardwareMap, new Poses(48, -61, 0.0));
         Drive drive = new Drive(hardwareMap);
 
 
@@ -46,19 +55,12 @@ public class DriveTuning extends LinearOpMode {
                             return true;
                         },
                         new SequentialAction(
-                                Positions.TestTurning.runToExact,
+                                Positions.HighRung1.runToExact,
                                 new SleepAction(1),
-                                Positions.TestStart.runToExact,
+                               // customActions.intakeForeArmSubEdge,
+                              //  new SleepAction(1),
+                                Positions.HighRungTiny1.runToExact,
                                 new SleepAction(1),
-
-                                Positions.TestTurning.runToExact,
-                                new SleepAction(1),
-                                Positions.TestStart.runToExact,
-                                new SleepAction(1),
-
-                                Positions.TestTurning.runToExact,
-                                new SleepAction(1),
-                                Positions.TestStart.runToExact,
                                 Action -> {
                                     drive.stopDrive();
                                     return false;

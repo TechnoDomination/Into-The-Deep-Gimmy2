@@ -235,7 +235,7 @@ public class TeleOpAutomation extends LinearOpMode {
                         new SleepAction(.5),
                         customActions.intakeWristMiddle,
                         new SleepAction(.5),
-                        customActions.intakeForeArmIn,
+                        customActions.intakeForeArmSubEdge,
                         new SleepAction(.5),
 
                         customActions.outakeArmSpecimenScore

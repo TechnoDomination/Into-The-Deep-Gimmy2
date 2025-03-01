@@ -13,7 +13,7 @@ public class HorizSlides {
     public DcMotorEx horizSlide;
     public State state = State.IDLE;
 
-    public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0,0.0));
+    public PIDFController controller = new PIDFController(new PIDFParams(0.0075,0.0,0.0000,0.0));
 
     public boolean isTargetReached = false;
     public static HorizSlides instance;
