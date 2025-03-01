@@ -32,16 +32,16 @@ public enum Positions {
     ObserservationZoneParkingSample(new Vector2d(50, -63), 0.0),
 
 
-    //Gimmy 2.0 Specmien related movement
-    HighRung1(new Vector2d(-2, -35), 0.0),
-    HighRungTiny1(new Vector2d(-2, -27.5), 0.0),
+    //Gimmy 2.0 Specimen related movement
+    HighRung1(new Vector2d(-4, -35), 0.0),
+    HighRungTiny1(new Vector2d(-4, -28), 0.0),
     //HighRungTiny1_2(new Vector2d(-2, -27.3), 0.0),
-    HighRung2(new Vector2d(0, -35), 0.0),
-    HighRungTiny2(new Vector2d(0, -28), 0.0),
-    HighRung3(new Vector2d(2, -35), 0.0),
-    HighRungTiny3(new Vector2d(2, -28), 0.0),
-    ObsZonePickupSpecimen(new Vector2d(48, -50), 0.0),
-    ObsZonePickupSpecimenTiny(new Vector2d(48, -62), 0.0),
+    HighRung2(new Vector2d(-2, -35), 0.0),
+    HighRungTiny2(new Vector2d(-2, -28), 0.0),
+    HighRung3(new Vector2d(0, -35), 0.0),
+    HighRungTiny3(new Vector2d(0, -28), 0.0),
+    ObsZonePickupSpecimen(new Vector2d(48, -40), 0.0),
+    ObsZonePickupSpecimenTiny(new Vector2d(48, -61), 0.0),
     Parking(new Vector2d(48, -60), 0.0),
     PrepareForPushStep1(new Vector2d(35, -45), 0.0),
     PrepareForPushStep2(new Vector2d(35, -10), 0.0),
@@ -49,7 +49,7 @@ public enum Positions {
     PrepareForPushStep4(new Vector2d(45, -10), 0.0),
     PrepareForPushStep5(new Vector2d(60, -10), 0.0),
     PushSample1(new Vector2d(48, -55), 0.0),
-    PushSample2(new Vector2d(60, -55), 0.0),
+    PushSample2(new Vector2d(62, -55), -PI*0.1),
 
     //Gimmy 2.0 Sample related movement
     Basket(new Vector2d(-51, -56),PI*0.25),

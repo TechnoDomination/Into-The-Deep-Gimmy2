@@ -21,8 +21,8 @@ public class VertSlides {
 
     public static int highBasketTarget = 2250;
     public static int lowBasketTarget = 1000;
-    public static int specimenAlignDownTarget = 400;
-    public static int specimenAlignUpTarget = 1000;
+    public static int specimenAlignDownTarget = 500;
+    public static int specimenAlignUpTarget = 1250;
     public static int specimenPullTarget = 450;
     public static int fullDownTarget = 0;
     public static int hangingTarget = 1450;

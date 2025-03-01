@@ -8,8 +8,8 @@ public class IntakeClaw {
     public State state = State.OPEN;
     public boolean isTargetReached = false;
     public static IntakeClaw instance;
-    private double openPos = 1;
-    private double closePos = 0;
+    private double openPos = 0.5;
+    private double closePos = 1;
     private double stopPos = 0;
     private double middlePos = 0.5;
 

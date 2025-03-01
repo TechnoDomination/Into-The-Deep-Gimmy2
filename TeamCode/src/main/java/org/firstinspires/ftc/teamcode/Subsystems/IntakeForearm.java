@@ -8,11 +8,11 @@ public class IntakeForearm {
     public State state = State.OUT;
     public boolean isTargetReached = false;
     public static IntakeForearm instance;
-    private double inPos = 0.75
-            ;
+
+    private double inPos = 0.85;
     private double outPos = 0;
     private double middlePos = 0.4;
-    private double samplePickPos = 0.15;
+    private double samplePickPos = 0.25;
     private double submersibleEdgePos = 0.6;
 
     public enum State {

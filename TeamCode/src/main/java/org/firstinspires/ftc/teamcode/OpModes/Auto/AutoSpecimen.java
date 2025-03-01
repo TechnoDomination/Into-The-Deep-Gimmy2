@@ -24,7 +24,7 @@ import org.firstinspires.ftc.teamcode.Util.Positions;
 @Autonomous(name = "Auto Right Specimen", group = "TestOpModes")
 public class AutoSpecimen extends LinearOpMode {
 
-    public static double p = 0.15, i = 0.0001, d = 0.03;
+    public static double p = 0.35, i = 0.0001, d = 0.03;
     public static double p2 = 0.06,i2 = 0.0001, d2 = 0.03;
     public static double p3 = 1.2,i3 = 0.0,d3 = 0.08;
 
@@ -72,8 +72,8 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(0.2),
                                 customActions.intakeForeArmMiddle,
                                 new SleepAction(0.25),
-                                Positions.HighRung1.runToExact,
-                                new SleepAction(.25),
+                                //Positions.HighRung1.runToExact,
+                                //new SleepAction(.25),
                                 Positions.HighRungTiny1.runToExact,
                                 customActions.stopDrive,
                                 new SleepAction(.35),
@@ -95,17 +95,17 @@ public class AutoSpecimen extends LinearOpMode {
                                 new SleepAction(.2),
                                 Positions.PushSample1.runToExact,
                                 new SleepAction(.2),
-                                Positions.PrepareForPushStep4.runToExact,
-                                new SleepAction(.2),
-                                Positions.PrepareForPushStep5.runToExact,
-                                new SleepAction(.2),
-                                Positions.PushSample2.runToExact,
-                                new SleepAction(.25),
+                                //Positions.PrepareForPushStep4.runToExact,
+                                //new SleepAction(.2),
+                                //Positions.PrepareForPushStep5.runToExact,
+                                //new SleepAction(.2),
+                                //Positions.PushSample2.runToExact,
+                                //new SleepAction(.25),
 
 
                                 //pick up specimen 2
                                 Positions.ObsZonePickupSpecimen.runToExact,
-                                new SleepAction(.75),
+                                new SleepAction(1),
                                 Positions.ObsZonePickupSpecimenTiny.runToExact,
                                 new SleepAction(.25),
                                 customActions.stopDrive,
@@ -130,7 +130,7 @@ public class AutoSpecimen extends LinearOpMode {
                                 //Pickup specimen 3
                                 customActions.prepareSpecimenPickup,
                                 Positions.ObsZonePickupSpecimen.runToExact,
-                                new SleepAction(.25),
+                                new SleepAction(0.5),
                                 Positions.ObsZonePickupSpecimenTiny.runToExact,
                                 new SleepAction(.25),
                                 customActions.stopDrive,

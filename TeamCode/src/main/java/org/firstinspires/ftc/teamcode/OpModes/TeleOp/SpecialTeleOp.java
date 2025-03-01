@@ -25,15 +25,14 @@ public class SpecialTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             //if (gamepad1.left_bumper) {
             intakeForearm.update();
-            outakeForearm.update();
-            vertSlides.LeftVertSlide.setPower(1);
-            vertSlides.RightVertSlide.setPower(1);
+            //vertSlides.LeftVertSlide.setPower(1);
+            //vertSlides.RightVertSlide.setPower(1);
             outakeForearm.state = OutakeForearm.State.SPECIMENSCORING;
             new SleepAction(0.5);
             horizSlides.horizSlide.setPower(-1);
             vertSlides.LeftVertSlide.setPower(-1);
             vertSlides.RightVertSlide.setPower(-1);
-            intakeForearm.state = IntakeForearm.State.SUBMERSIBLEEDGE;
+            intakeForearm.state = IntakeForearm.State.IN;
             //}
         }
     }

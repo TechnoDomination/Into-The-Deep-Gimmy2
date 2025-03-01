@@ -30,6 +30,8 @@ public class TeleOpAutomation extends LinearOpMode {
     private List<Action> runningActions = new ArrayList<>();
     public static DistanceSensor DistanceSensor;
     private double distanceInch;
+    private boolean isSample = false;
+    private boolean isSpecimen = false;
 
 
     @Override
@@ -64,6 +66,18 @@ public class TeleOpAutomation extends LinearOpMode {
             telemetry.addData("X pos", Localizer.pose.getX());
             telemetry.addData("Y pos", Localizer.pose.getY());
             telemetry.addData("Heading pos", Localizer.pose.getHeading());
+
+            if (gamepad1.start)
+            {
+                isSpecimen = true;
+                isSample = false;
+            }
+
+            if(gamepad1.back)
+            {
+                isSpecimen = false;
+                isSample = true;
+            }
 
             //Drive Controls
            // drive.update(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
@@ -187,7 +201,7 @@ public class TeleOpAutomation extends LinearOpMode {
 
             }
 
-            if (gamepad1.dpad_down){
+            if (gamepad1.dpad_down && isSample){
                 telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
                 runningActions.add(new SequentialAction(
                         customActions.openOutakeClaw,
@@ -198,14 +212,33 @@ public class TeleOpAutomation extends LinearOpMode {
                         customActions.intakeWristMiddle,
                         new SleepAction(.5),
                         customActions.intakeForeArmIn,
-                        new SleepAction(.5)
-                        //customActions.OutakeClawDown,
-                        //new SleepAction(.5),
-                        //customActions.closeOutakeClaw,
-                        //new SleepAction(.5),
-                        //customActions.openIntakeClaw,
-                        //new SleepAction(.5),
-                        //customActions.outakeArmSpecimenScore
+                        new SleepAction(.5),
+                        customActions.OutakeClawDown,
+                        new SleepAction(.5),
+                        customActions.closeOutakeClaw,
+                        new SleepAction(.5),
+                        customActions.openIntakeClaw,
+                        new SleepAction(.5),
+
+                        customActions.outakeArmSpecimenScore
+                ));
+
+            }
+
+            if (gamepad1.dpad_down && isSpecimen){
+                telemetry.addData("In 1Dpad Down ",gamepad1.dpad_down );
+                runningActions.add(new SequentialAction(
+                        customActions.openOutakeClaw,
+                        customActions.intakeForeArmSubEdge,
+                        new SleepAction(0.25),
+                        customActions.prepareIntakeTransfer,
+                        new SleepAction(.5),
+                        customActions.intakeWristMiddle,
+                        new SleepAction(.5),
+                        customActions.intakeForeArmIn,
+                        new SleepAction(.5),
+
+                        customActions.outakeArmSpecimenScore
                 ));
 
             }
@@ -219,6 +252,8 @@ public class TeleOpAutomation extends LinearOpMode {
                         customActions.outakeForeArmBasketScoring,
                         new SleepAction(.5),
                         customActions.openOutakeClaw,
+                        new SleepAction(0.5),
+                        customActions.outakeForeArmSpecimenScoring,
                         new SleepAction(0.5),
                         customActions.prepareOutakeTransfer
 
